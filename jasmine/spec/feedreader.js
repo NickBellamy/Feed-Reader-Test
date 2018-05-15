@@ -9,6 +9,7 @@
  * to ensure they don't run until the DOM is ready.
  */
 $(function() {
+    
     /* This is our first test suite - a test suite just contains
     * a related set of tests. This suite is all about the RSS
     * feeds definitions, the allFeeds variable in our application.
@@ -45,7 +46,6 @@ $(function() {
          });
     });
 
-
     /* A new test suite named "The menu" */
     describe('The menu', () => {
         
@@ -73,8 +73,10 @@ $(function() {
             menu.click();
             expect(isMenuHidden()).toBe(true);
          });
-
-    /* TODO: Write a new test suite named "Initial Entries" */
+    });
+    
+    /* A new test suite named "Initial Entries" */
+    describe('Initial Entries', () => {
 
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
