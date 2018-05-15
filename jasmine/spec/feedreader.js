@@ -27,10 +27,13 @@ $(function() {
         });
 
 
-        /* TODO: Write a test that loops through each feed
+        /* A test that loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
+        it('have defined URLs for each feed', () => {
+            expect(allFeeds.every(feed => feed.url.length > 0)).toBe(true);
+         });
 
 
         /* TODO: Write a test that loops through each feed
