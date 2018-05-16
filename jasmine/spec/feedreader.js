@@ -101,9 +101,22 @@ $(function() {
     /* A new test suite named "New Feed Selection" */
     describe('New Feed Selection', () => {
 
-        /* TODO: Write a test that ensures when a new feed is loaded
+        /* A test that ensures when a new feed is loaded
         * by the loadFeed function that the content actually changes.
         * Remember, loadFeed() is asynchronous.
         */
+        let firstArticle = null;
+
+        function checkNewContent(element, index) {
+            describe(`Feed ${index}`, () => {
+                beforeEach(done => loadFeed(index, done));
+                afterEach(() => firstArticle = document.querySelector('article h2').innerHTML);
+                it('displays content when selected', done => {
+                    expect(document.querySelector('article h2').innerHTML).not.toEqual(firstArticle);
+                    done();
+                });
+            });
+        }
+        allFeeds.forEach(checkNewContent);
     });
 }());
