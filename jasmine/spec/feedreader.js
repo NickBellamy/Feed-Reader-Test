@@ -51,7 +51,9 @@ $(function() {
         // Test that there is at least one initial entry
         function checkEntries(element, index) {
             describe(`Feed ${index}`, () => {
+
                 beforeEach(done => loadFeed(index, done));
+                
                 it('contains entries', done => {
                     expect(document.querySelectorAll('.entry-link').length).toBeGreaterThan(0);
                     done();
@@ -70,8 +72,10 @@ $(function() {
         // Compares articles from feeds to determine if new content is loaded on feed selection
         function checkNewContent(element, index) {
             describe(`Feed ${index}`, () => {
+
                 beforeEach(done => loadFeed(index, done));
                 afterEach(() => firstArticle = document.querySelector('article h2').innerHTML);
+
                 it('displays new content when selected', done => {
                     expect(document.querySelector('article h2').innerHTML).not.toEqual(firstArticle);
                     done();
