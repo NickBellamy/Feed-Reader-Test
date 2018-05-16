@@ -24,7 +24,7 @@ $(function() {
          */
         it('are defined', () => {
             expect(allFeeds).toBeDefined();
-            expect(allFeeds.length).not.toBe(0);
+            expect(allFeeds.length).toBeGreaterThan(0);
         });
 
 
@@ -34,7 +34,7 @@ $(function() {
          */
         it('have defined URLs for each feed', () => {
             expect(allFeeds.every(feed => feed.url.length > 0)).toBe(true);
-         });
+        });
 
 
         /* A test that loops through each feed
@@ -49,7 +49,7 @@ $(function() {
     /* A new test suite named "The menu" */
     describe('The menu', () => {
         
-        const body = document.getElementsByTagName("body")[0];
+        const body = document.querySelector('body');
         const isMenuHidden = () => body.classList.contains('menu-hidden');
         
         /* A test that ensures the menu element is
@@ -84,7 +84,7 @@ $(function() {
         * Remember, loadFeed() is asynchronous so this test will require
         * the use of Jasmine's beforeEach and asynchronous done() function.
         */
-        function checkEntries(index) {
+        function checkEntries(element, index) {
             describe(`Feed ${index}`, () => {
                 beforeEach(done => loadFeed(index, done));
                 it('contains entries', done => {
@@ -93,25 +93,23 @@ $(function() {
                 });
             });
         }
-        
-        for(let i = 0; i < allFeeds.length; i++) {
-            checkEntries(i);
-        }
+        allFeeds.forEach(checkEntries);
     });
+
     /* A new test suite named "New Feed Selection" */
     describe('New Feed Selection', () => {
+
+        let firstArticle = null;
 
         /* A test that ensures when a new feed is loaded
         * by the loadFeed function that the content actually changes.
         * Remember, loadFeed() is asynchronous.
         */
-        let firstArticle = null;
-
         function checkNewContent(element, index) {
             describe(`Feed ${index}`, () => {
                 beforeEach(done => loadFeed(index, done));
                 afterEach(() => firstArticle = document.querySelector('article h2').innerHTML);
-                it('displays content when selected', done => {
+                it('displays new content when selected', done => {
                     expect(document.querySelector('article h2').innerHTML).not.toEqual(firstArticle);
                     done();
                 });
